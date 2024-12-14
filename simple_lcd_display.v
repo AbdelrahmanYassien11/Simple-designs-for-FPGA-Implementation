@@ -5,7 +5,9 @@ module lcd_display (
     output reg lcd_rs,      // Register Select (0: Command, 1: Data)
     output reg lcd_rw,      // Read/Write (0: Write, 1: Read)
     output reg lcd_en,      // Enable signal
-    output reg done         // Done signal after word is displayed
+    output reg done,         // Done signal after word is displayed
+    output reg lcd_on,
+    output reg back_light_on
 );
 
     // LCD Commands
@@ -49,8 +51,12 @@ module lcd_display (
     always @(posedge clk or posedge reset) begin
         if (reset) begin
             state <= IDLE;
+            lcd_on <= 1;
+            back_light_on <= 1;
         end else begin
             state <= next_state;
+            lcd_on <= lcd_on;
+            back_light_on <= back_light_on;
         end
     end
 
