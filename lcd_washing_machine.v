@@ -91,7 +91,7 @@ module lcd_washing (
                                     6: data <= ".";                                    
                                 endcase
                                 count <= count + 1;  // Increment counter
-                                //state <= WAIT;       // Move to WAIT state after each character
+                                state <= WAIT;       // Move to WAIT state after each character
                             end else begin
                                 state <= WAIT;  // All characters sent, wait now
                                 done <= 1;      // Indicate completion
@@ -110,7 +110,7 @@ module lcd_washing (
                                     6: data <= "Z";
                                 endcase
                                 count <= count + 1;  // Increment counter
-                                //state <= WAIT;       // Move to WAIT state after each character
+                                state <= WAIT;       // Move to WAIT state after each character
                             end else begin
                                 state <= WAIT;  // All characters sent, wait now
                                 done <= 1;      // Indicate completion
@@ -129,7 +129,7 @@ module lcd_washing (
                                     6: data <= "X";
                                 endcase
                                 count <= count + 1;  // Increment counter
-                                //state <= WAIT;       // Move to WAIT state after each character
+                                state <= WAIT;       // Move to WAIT state after each character
                             end else begin
                                 state <= WAIT;  // All characters sent, wait now
                                 done <= 1;      // Indicate completion
@@ -148,7 +148,7 @@ module lcd_washing (
                                     6: data <= "Y";
                                 endcase
                                 count <= count + 1;  // Increment counter
-                                //state <= WAIT;       // Move to WAIT state after each character
+                                state <= WAIT;       // Move to WAIT state after each character
                             end else begin
                                 state <= WAIT;  // All characters sent, wait now
                                 done <= 1;      // Indicate completion
@@ -159,7 +159,7 @@ module lcd_washing (
 
                 WAIT: begin
                     en <= 0;           // Disable
-                    delay_count <= delay_count + 1; // Delay before next operation
+                    //delay_count <= delay_count + 1; // Delay before next operation
                     // if (delay_count == 50000 && count <= 6) begin // Wait time before moving forward
                     //     state <= DATA; // Return to DATA state to send next character
                     //     delay_count <= 0;  // Reset delay counter
@@ -169,10 +169,15 @@ module lcd_washing (
                     //     count <= 0;
                     // end
 
-                    if((delay_count == 50000) && (washing_machine_state != old_wm_state) ) begin
+                    if((washing_machine_state != old_wm_state) ) begin
                         state <= DATA;
-                        delay_count <= 0;
+                        //delay_count <= 0;
                         count <= 0;
+                    end
+                    else if ( (washing_machine_state == old_wm_state) )  begin
+                        state <= DATA;
+                        //delay_count <= 0;
+                        count <= count;
                     end
                     else begin
                         state <= state;
