@@ -3,7 +3,7 @@ module digitalwatch(
     input wire reset,       // إشارة إعادة التعيين
     input [5:0] alarm_minutes,
     input [4:0] alarm_hours,
-    input [5:0] seconds_initial, minutes_initial,
+    // input [5:0] seconds_initial, minutes_initial,
     input [4:0] hours_initial,
     output reg [5:0] second_count,
     output reg [5:0] minute_count,
@@ -15,8 +15,10 @@ integer freq_div;
 
 always @(posedge clk or posedge reset) begin
     if (reset) begin
-        second_count <= seconds_initial;
-        minute_count <= minutes_initial;
+        // second_count <= seconds_initial;
+        // minute_count <= minutes_initial;
+        second_count <= 0;
+        minute_count <= 0;
         hour_count <= hours_initial;
     end 
     else begin

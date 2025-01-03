@@ -5,7 +5,7 @@ module sevensegment(
 	input [4:0] digitalwatch_hour,
 	input [6:0] stopwatch_second,
 
-	input [5:0] seconds_initial, minutes_initial,
+	// input [5:0] seconds_initial, minutes_initial,
     input [4:0] hours_initial,
 
 
@@ -46,8 +46,10 @@ module sevensegment(
 		// تحويل الرقم إلى تنسيق سبعة segmentos
 	always@(*) begin
 		if(reset) begin
-			digitalwatch_seconds_reg1 = seconds_initial % 10;
-			digitalwatch_seconds_reg2 = seconds_initial / 10;
+			// digitalwatch_seconds_reg1 = seconds_initial % 10;
+			// digitalwatch_seconds_reg2 = seconds_initial / 10;
+			 digitalwatch_seconds_reg1 = 0;
+			 digitalwatch_seconds_reg2 = 0;
 		    case (digitalwatch_seconds_reg1)
 		        0: clock_second1_display = 7'b1000000;  // 0
 		        1: clock_second1_display = 7'b1111001;  // 1
@@ -112,8 +114,10 @@ module sevensegment(
 
 	always@(*)begin
 		if(reset) begin
-			digitalwatch_minutes_reg1 = minutes_initial % 10;
-			digitalwatch_minutes_reg2 = minutes_initial / 10;
+			// digitalwatch_minutes_reg1 = minutes_initial % 10;
+			// digitalwatch_minutes_reg2 = minutes_initial / 10;
+			digitalwatch_minutes_reg1 = 0;
+			digitalwatch_minutes_reg2 = 0;
 		    case (digitalwatch_minutes_reg1)
 		        0: clock_minute1_display = 7'b1000000;  // 0
 		        1: clock_minute1_display = 7'b1111001;  // 1
@@ -177,8 +181,10 @@ module sevensegment(
 
 	always@(*)begin
 		if(reset) begin
-			digitalwatch_hours_reg1 = hours_initial % 10;
-			digitalwatch_hours_reg2 = hours_initial / 10;
+			// digitalwatch_hours_reg1 = hours_initial % 10;
+			// digitalwatch_hours_reg2 = hours_initial / 10;
+			 digitalwatch_hours_reg1 = 0;
+			 digitalwatch_hours_reg2 = 0;
 		    case (digitalwatch_hours_reg1)
 		        0: clock_hour1_display = 7'b1000000;  // 0
 		        1: clock_hour1_display = 7'b1111001;  // 1
